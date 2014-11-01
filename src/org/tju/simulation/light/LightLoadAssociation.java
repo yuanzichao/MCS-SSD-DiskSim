@@ -9,6 +9,7 @@ import java.util.Random;
 
 
 
+
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -17,6 +18,7 @@ import jxl.write.WritableWorkbook;
 import org.tju.init.InitEnvironment;
 import org.tju.request.Request;
 import org.tju.statistics.DiskStateStat;
+import org.tju.tool.ReadXml;
 
 /**
  * @author yuan
@@ -24,6 +26,10 @@ import org.tju.statistics.DiskStateStat;
  * @date 2014年10月20日 下午4:06:21
  */
 public class LightLoadAssociation {
+	
+	//Refresh Time
+	public static final int refreshTime = Integer.parseInt(ReadXml.readname("config/RefreshTime.xml", "refreshtime"));
+
 
 	/**
 	 * Name: main
@@ -76,8 +82,7 @@ public class LightLoadAssociation {
 		
 		//Upset The Order of The List
 		Collections.shuffle(requestList);
-		
-		
+			
 		
 		try { 
 			//Open File
@@ -110,7 +115,7 @@ public class LightLoadAssociation {
 				
 				String requestFileName = requestList.get(i);
 				
-				lightLoad.request(init, requestFileName);
+				lightLoad.requestLight(init, requestFileName, i%refreshTime);
 				
 				DiskStateStat.idleTimeStat(init.getDataDisks());
 				

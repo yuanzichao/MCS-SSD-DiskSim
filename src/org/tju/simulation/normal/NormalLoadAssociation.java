@@ -49,7 +49,7 @@ public class NormalLoadAssociation {
 		List<String> requestList = new LinkedList<String>();
 		
 		Random rd = new Random();
-		for(int i=0; i<1000; i++){
+		for(int i=0; i<2000; i++){
 			int diskId = rd.nextInt(14);
 			int skyZoneId = diskId*40 + rd.nextInt(40);
 			int observeTime = rd.nextInt(150);

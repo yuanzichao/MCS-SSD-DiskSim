@@ -109,10 +109,6 @@ public class ReplacementStrategy {
 	//Data Disk====>>SSD Cache Replacement Strategy
 	public static void DDtoSSDReplacement(DiskInfo disk0, DiskInfo disk1){
 		
-		if(disk0.getLeftSpace()<=5000){
-			clearCache(disk0);
-		}
-		
 		Iterator<Entry<String, FileInfo>> iter = disk1.getFilesList().entrySet().iterator();
 		while (iter.hasNext()){
 			Entry<String, FileInfo> entry = iter.next();
@@ -122,16 +118,14 @@ public class ReplacementStrategy {
 				disk0.getFilesList().put(entry.getKey(), file);
 				disk0.setLeftSpace(disk0.getLeftSpace()-file.getSize());
 			}else {
-				if(file.getPriority()>=normalThreshold){
+				if(file.getPriority()>=highThreshold){
 					disk0.getFilesList().put(entry.getKey(), file);
 					disk0.setLeftSpace(disk0.getLeftSpace()-file.getSize());
 				}
 			}
 		}
 		
-			
-		sortedByPriority(disk0.getFilesList());
-		sortedByPriority(disk1.getFilesList());
+
 		
 	}
 	
@@ -139,7 +133,7 @@ public class ReplacementStrategy {
 	public static void cacheReplacement(DiskInfo disk0, DiskInfo disk1, DiskInfo disk2){
 		
 		if(disk0.getLeftSpace()<=5000){
-			clearCache(disk0);
+			clearFileList(disk0.getFilesList());
 		}
 		
 		Iterator<Entry<String, FileInfo>> iter = disk2.getFilesList().entrySet().iterator();
@@ -172,7 +166,7 @@ public class ReplacementStrategy {
 	public static void HDDtoSSDReplacement(DiskInfo disk0, DiskInfo disk1){
 		
 		if(disk0.getLeftSpace()<=5000){
-			clearCache(disk0);
+			clearFileList(disk0.getFilesList());
 		}
 		
 		HashMap<String, FileInfo> highPriorityFiles = new HashMap<String, FileInfo>();
@@ -313,7 +307,7 @@ public class ReplacementStrategy {
 			
 			ReplacementStrategy.HDDtoHDDReplacement(init.getSecLevCache());
 			
-			ReplacementStrategy.clearCache(init.getSSDDisk());
+			ReplacementStrategy.clearFileList(init.getSSDDisk().getFilesList());
 			
 			DiskStateStat.refreshRequest(init.getSSDDisk());
 			for(int i=0; i<init.getSecLevCache().length; i++){
@@ -346,24 +340,6 @@ public class ReplacementStrategy {
 			totalRequestNum = 0;
 			requestNum = 0;
 		}
-	}
-	
-	
-	
-	
-	
-
-	/**
-	 * Name: main
-	 * Description: 
-	 * @param args
-	 *
-	 * @author yuan
-	 * @date 2014年10月20日 上午9:44:32
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
