@@ -341,5 +341,39 @@ public class ReplacementStrategy {
 			requestNum = 0;
 		}
 	}
+	
+	//Replacement Strategy
+	//Data Disk====>>SSD Cache Replacement Strategy of MAID
+	public static void MAIDReplacement(DiskInfo disk0, DiskInfo disk1){
+		
+		Iterator<Entry<String, FileInfo>> iter = disk1.getFilesList().entrySet().iterator();
+		while (iter.hasNext()){
+			Entry<String, FileInfo> entry = iter.next();
+			FileInfo file = entry.getValue();
+			
+			if(file.getIsHit()==1){
+				disk0.getFilesList().put(entry.getKey(), file);
+				disk0.setLeftSpace(disk0.getLeftSpace()-file.getSize());
+			}
+		}	
+	}
+	
+	//Data Disk====>>HDD Cache Replacement Strategy of MAID
+	public static void MAIDCacheReplacement(DiskInfo disk0, DiskInfo disk1){
+			
+		Iterator<Entry<String, FileInfo>> iter = disk1.getFilesList().entrySet().iterator();
+		while (iter.hasNext()){
+			Entry<String, FileInfo> entry = iter.next();
+			FileInfo file = entry.getValue();
+			
+			if(file.getIsHit()==1){
+				disk0.getFilesList().put(entry.getKey(), file);        //The file is hit in SSD Cache
+				disk0.setLeftSpace(disk0.getLeftSpace()-file.getSize());
+			}
+		}
+			
+		sortedByPriority(disk0.getFilesList());
+		sortedByPriority(disk1.getFilesList());
+	}
 
 }

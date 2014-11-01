@@ -272,7 +272,7 @@ public class Request {
 	
 	
 	//Light Lord of MAID
-	public void requestMAID(InitEnvironment init, String fileName){
+	public void requestMAID(InitEnvironment init, String fileName, int requestNum){
 		
 		if(init.getSSDDisk().getFilesList().get(fileName)!=null){
 			totalRequestNum += 1;
@@ -283,11 +283,14 @@ public class Request {
 					                                +fileInfo.getObserveTime()+"="+fileInfo.getRequestNum()+"="
 					                                +fileInfo.getPriority()+"="+fileInfo.getSize());
 			
-			fileInfo.setRequestNum(fileInfo.getRequestNum()+1);
+			fileInfo.setRequestNum(fileInfo.getRequestNum()+requestNum+1);
 			init.getSSDDisk().getFilesList().put(fileName, fileInfo);
 			
 			ReplacementStrategy.calPriInCacheDisk(init.getSSDDisk(), totalRequestNum);
 			init.getSSDDisk().getFilesList().put(fileName, fileInfo);
+			
+			//refresh All
+			ReplacementStrategy.refresh(init, requestNum, totalRequestNum);
 			
 			return;
 		}
@@ -307,15 +310,28 @@ public class Request {
 			fileInfo.setIsHit(1);
 			init.getDataDisks()[i].getFilesList().put(fileName, fileInfo);
 			
-			
+			if(init.getSSDDisk().getLeftSpace()>=200){
+				ReplacementStrategy.MAIDReplacement(init.getSSDDisk(), init.getDataDisks()[i]);
+			}else {
+				
+				for(int j=0; j<init.getSecLevCache().length; j++){
+					if(init.getSecLevCache()[j].getLeftSpace()>=200){
+						init.getSecLevCache()[j].setDiskState(1);
+						ReplacementStrategy.MAIDCacheReplacement(init.getSecLevCache()[j], init.getDataDisks()[i]);
+						break;				
+					}
+				}	
+			}
+						
+			//refresh All
+			ReplacementStrategy.refresh(init, requestNum, totalRequestNum);
 			
 			return;
 		}
 		
 		
 		System.out.println("Not Found!!!");
-		
-		
+			
 	}	
 	
 	/**

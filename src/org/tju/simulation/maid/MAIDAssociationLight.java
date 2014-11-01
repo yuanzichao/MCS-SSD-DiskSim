@@ -9,6 +9,7 @@ import java.util.Random;
 
 
 
+
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -17,13 +18,18 @@ import jxl.write.WritableWorkbook;
 import org.tju.init.InitEnvironment;
 import org.tju.request.Request;
 import org.tju.statistics.DiskStateStat;
+import org.tju.tool.ReadXml;
 
 /**
  * @author yuan
  *
  * @date 2014年10月27日 下午3:06:21
  */
-public class MAIDAssociation {
+public class MAIDAssociationLight {
+	
+	//Refresh Time
+	public static final int refreshTime = Integer.parseInt(ReadXml.readname("config/RefreshTime.xml", "refreshtime"));
+
 
 	/**
 	 * Name: main
@@ -43,7 +49,7 @@ public class MAIDAssociation {
 		List<String> requestList = new LinkedList<String>();
 		
 		Random rd = new Random();
-		for(int i=0; i<2000; i++){
+		for(int i=0; i<1000; i++){
 			int diskId = rd.nextInt(14);
 			int skyZoneId = diskId*40 + rd.nextInt(40);
 			int observeTime = rd.nextInt(150);
@@ -110,7 +116,7 @@ public class MAIDAssociation {
 				
 				String requestFileName = requestList.get(i);
 				
-				lightLoad.requestMAID(init, requestFileName);
+				lightLoad.requestMAID(init, requestFileName, i%refreshTime);
 				
 				DiskStateStat.idleTimeStat(init.getDataDisks());
 				
