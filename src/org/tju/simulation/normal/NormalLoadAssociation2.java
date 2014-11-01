@@ -57,30 +57,7 @@ public class NormalLoadAssociation2 {
 			                         String.valueOf(skyZoneId) + "-" + 
 					                 String.valueOf(observeTime);			
 			requestList.add(requestFileName);
-			
-//					
-//			requestFileName = String.valueOf(diskId) + "-" + 
-//                              String.valueOf(skyZoneId-rd.nextInt(3)) + "-" + 
-//                              String.valueOf(observeTime-rd.nextInt(3));
-//            requestList.add(requestFileName);
-//            
-//            requestFileName = String.valueOf(diskId) + "-" + 
-//                              String.valueOf(skyZoneId+rd.nextInt(3)) + "-" + 
-//                              String.valueOf(observeTime+rd.nextInt(3));
-//            requestList.add(requestFileName);
-//            
-//            requestFileName = String.valueOf(diskId) + "-" + 
-//                              String.valueOf(skyZoneId-rd.nextInt(3)) + "-" + 
-//                              String.valueOf(observeTime+rd.nextInt(3));
-//            requestList.add(requestFileName);
-//            
-//            requestFileName = String.valueOf(diskId) + "-" + 
-//                              String.valueOf(skyZoneId+rd.nextInt(3)) + "-" + 
-//                              String.valueOf(observeTime-rd.nextInt(3));
-//            requestList.add(requestFileName);
-				
-			
-			
+					
 			requestFileName = String.valueOf(diskId) + "-" + 
                               String.valueOf(skyZoneId-1) + "-" + 
 	                          String.valueOf(observeTime);
@@ -99,29 +76,7 @@ public class NormalLoadAssociation2 {
 			requestFileName = String.valueOf(diskId) + "-" + 
                               String.valueOf(skyZoneId) + "-" + 
                               String.valueOf(observeTime+1);
-            requestList.add(requestFileName);
-
-//            
-//            requestFileName = String.valueOf(diskId) + "-" + 
-//                    String.valueOf(skyZoneId-1) + "-" + 
-//                    String.valueOf(observeTime);
-//	        requestList.add(requestFileName);            
-//            requestFileName = String.valueOf(diskId) + "-" + 
-//                    String.valueOf(skyZoneId-1) + "-" + 
-//                    String.valueOf(observeTime);
-//	        requestList.add(requestFileName);            
-//            requestFileName = String.valueOf(diskId) + "-" + 
-//                    String.valueOf(skyZoneId-1) + "-" + 
-//                    String.valueOf(observeTime);
-//	        requestList.add(requestFileName);            
-//            requestFileName = String.valueOf(diskId) + "-" + 
-//                    String.valueOf(skyZoneId-1) + "-" + 
-//                    String.valueOf(observeTime);
-//	        requestList.add(requestFileName);            
-//            requestFileName = String.valueOf(diskId) + "-" + 
-//                    String.valueOf(skyZoneId-1) + "-" + 
-//                    String.valueOf(observeTime);
-//	        requestList.add(requestFileName);			
+            requestList.add(requestFileName);			
 		}
 		
 		//Upset The Order of The List
@@ -130,11 +85,11 @@ public class NormalLoadAssociation2 {
 		
 		
 		try { 
-			//打开文件 
+			//Open File
 		    WritableWorkbook book= Workbook.createWorkbook(new File("outputData/outputData.xls")); 
-		    //生成名为“第一页”的工作表，参数0表示这是第一页 
-		    WritableSheet sheet=book.createSheet("第一页",0); 
-		    //在Label对象的构造子中指名单元格位置是第一列第一行(0,0) 
+		    //Generate the first sheet
+		    WritableSheet sheet=book.createSheet("First Sheet",0); 
+		    //Put The Label in(0,0) 
 		    Label label=new Label(0,0,"Time"); 
 		    sheet.addCell(label); 
 		    
@@ -152,12 +107,6 @@ public class NormalLoadAssociation2 {
 		    
 		    label = new Label(init.getDataDisks().length+3, 0, "ClosedDisks");
 		    sheet.addCell(label);
-		    
-//		    //First Column
-//		    for(int i=0; i<requestList.size(); i++){
-//		    	label = new Label(0, i+1, String.valueOf(i));
-//		    	sheet.addCell(label);
-//		    }
 		    
 		    for(int i=0; i<requestList.size(); i++){
 				
@@ -188,9 +137,9 @@ public class NormalLoadAssociation2 {
 				sheet.addCell(closedDisksNum);
 			}
 		
-		    //写入数据并关闭文件 
+		    //Write data to the file
 		    book.write(); 
-		    book.close(); //最好在finally中关闭，此处仅作为示例不太规范
+		    book.close();
 	    }catch(Exception e) { 
 	        System.out.println(e); 
 	    } 
