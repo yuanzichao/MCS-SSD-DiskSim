@@ -19,6 +19,8 @@ public class InitEnvironment {
 	public int skyZone = 0;
 	public int tatalObsTime = 150;
 	
+	public int copyNum = 10;
+	
 	public DiskInfo SSDDisk;
 	public DiskInfo[] secLevCache = new DiskInfo[4];        //4 HDD Disks
 	
@@ -40,6 +42,17 @@ public class InitEnvironment {
 					
 				}
 			}
+			
+			//Add copies to the edge of Disk
+			for(int flag=0; flag<copyNum; flag++){
+				String fileName = String.valueOf(i+1)+"-"+String.valueOf(skyZone+1)+"-"+String.valueOf(flag);
+				FileInfo file = new FileInfo(fileId+flag, fileName, Integer.valueOf(ReadXml.readname("config/FileInfo.xml", "size")), 
+						                        flag, skyZone+1, i, 0, 0, 0);
+				filesList.put(fileName, file);
+				usedSpace += file.getSize();			
+			}
+			
+			
 			
 			dataDisks[i] = new DiskInfo(i, 2, 0, Double.valueOf(ReadXml.readname("config/HDDDisk.xml", "size")), 
                                            Double.valueOf(ReadXml.readname("config/HDDDisk.xml", "size"))-usedSpace, 0, 
@@ -130,23 +143,6 @@ public class InitEnvironment {
 	 */
 	public void setDataDisks(DiskInfo[] dataDisks) {
 		this.dataDisks = dataDisks;
-	}
-
-
-
-	/**
-	 * Name: main
-	 * Description: 
-	 * @param args
-	 *
-	 * @author yuan
-	 * @date 2014年10月19日 下午3:37:08
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		InitEnvironment init = new InitEnvironment();
-		init.initEnvironment();
-
 	}
 
 }

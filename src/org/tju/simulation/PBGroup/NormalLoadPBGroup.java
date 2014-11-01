@@ -24,7 +24,7 @@ import org.tju.tool.ReadXml;
 public class NormalLoadPBGroup {
 	
 	//Group NUmber
-	public static int groupNum = 40;
+	public static int groupNum = 4;
 	
 	//Refresh Time
 	public static final int refreshTime = Integer.parseInt(ReadXml.readname("config/RefreshTime.xml", "refreshtime"));
@@ -57,7 +57,7 @@ public class NormalLoadPBGroup {
 		}
 		
 		Random rd = new Random();
-		for(int i=0; i<80000; i++){
+		for(int i=0; i<8000; i++){
 			int groupId = rd.nextInt(groupNum);
 			int diskId = groupId * 15 + rd.nextInt(15);
 			int skyZoneId = diskId*13 + rd.nextInt(13);
