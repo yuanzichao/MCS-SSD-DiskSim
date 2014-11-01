@@ -28,13 +28,6 @@ public class NormalLoadPBGroup {
 	
 	//Refresh Time
 	public static final int refreshTime = Integer.parseInt(ReadXml.readname("config/RefreshTime.xml", "refreshtime"));
-
-	
-	//Requests Group
-	public static void requestGroup(){
-		
-	}
-	
 	
 	
 	/**
@@ -107,18 +100,15 @@ public class NormalLoadPBGroup {
 		for(int i=0; i<groupNum; i++){
 			Collections.shuffle(requestList.get(i));
 		}
-		
-		
-		
-		
+				
 		try {
 			for(int i=0; i<groupNum; i++){
 				String outputDataName = "outputData/outputData" + i + ".xls";
-				//打开文件 
+				//Open file
 			    WritableWorkbook book= Workbook.createWorkbook(new File(outputDataName)); 
-			    //生成名为“第一页”的工作表，参数0表示这是第一页 
-			    WritableSheet sheet=book.createSheet("第一页",0); 
-			    //在Label对象的构造子中指名单元格位置是第一列第一行(0,0) 
+			    //Generate the first sheet
+			    WritableSheet sheet=book.createSheet("First Sheet",0); 
+			    //Put The Label in(0,0) 
 			    Label label=new Label(0,0,"Time"); 
 			    sheet.addCell(label); 
 			    
@@ -136,12 +126,6 @@ public class NormalLoadPBGroup {
 			    
 			    label = new Label(init[i].getDataDisks().length+3, 0, "ClosedDisks");
 			    sheet.addCell(label);
-			    
-//			    //First Column
-//			    for(int j=0; j<requestList.get(i).size(); j++){
-//			    	label = new Label(0, j+1, String.valueOf(j));
-//			    	sheet.addCell(label);
-//			    }
 			    
 			    for(int j=0; j<requestList.get(i).size(); j++){
 					
@@ -173,9 +157,9 @@ public class NormalLoadPBGroup {
 					sheet.addCell(closedDisksNum);
 				}
 			
-			    //写入数据并关闭文件 
+			    //Write data to the file
 			    book.write(); 
-			    book.close(); //最好在finally中关闭，此处仅作为示例不太规范
+			    book.close();
 			}
 			
 	    }catch(Exception e) { 

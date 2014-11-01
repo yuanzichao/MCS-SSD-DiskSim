@@ -26,7 +26,7 @@ import org.tju.tool.ReadXml;
  *
  * @date 2014年10月23日 下午2:06:21
  */
-public class NormalLoadAssociation2 {
+public class NormalLoadAssociation1 {
 	
 	//Refresh Time
 	public static final int refreshTime = Integer.parseInt(ReadXml.readname("config/RefreshTime.xml", "refreshtime"));
