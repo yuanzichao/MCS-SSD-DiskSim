@@ -97,19 +97,5 @@ public class DiskStateStat {
 			}
 		}
 	}
-	
-
-	/**
-	 * Name: main
-	 * Description: 
-	 * @param args
-	 *
-	 * @author yuan
-	 * @date 2014年10月21日 上午10:50:38
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 
 }
