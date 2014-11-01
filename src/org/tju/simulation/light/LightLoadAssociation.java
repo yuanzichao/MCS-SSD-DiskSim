@@ -132,9 +132,9 @@ public class LightLoadAssociation {
 				sheet.addCell(closedDisksNum);
 			}
 		
-		    //写入数据并关闭文件 
+		    //Write the data to files 
 		    book.write(); 
-		    book.close(); //最好在finally中关闭，此处仅作为示例不太规范
+		    book.close();
 	    }catch(Exception e) { 
 	        System.out.println(e); 
 	    } 

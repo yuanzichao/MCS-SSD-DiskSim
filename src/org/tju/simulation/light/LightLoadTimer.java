@@ -68,17 +68,13 @@ public class LightLoadTimer {
 			requestTimeList.add(tt);
 		  
 		}
-//		
-//		for(int i=0; i<requestTimeList.size(); i++){
-//			timer.schedule(requestTimeList.get(i), 100+100*i);
-//		}
 		
 		try { 
-			//打开文件 
+			//Open File
 		    WritableWorkbook book= Workbook.createWorkbook(new File("outputData/outputData.xls")); 
-		    //生成名为“第一页”的工作表，参数0表示这是第一页 
-		    WritableSheet sheet=book.createSheet("第一页",0); 
-		    //在Label对象的构造子中指名单元格位置是第一列第一行(0,0) 
+		    //Generate the first sheet
+		    WritableSheet sheet=book.createSheet("First Sheet",0); 
+		    //Put The Label in(0,0) 
 		    Label label=new Label(0,0,"Time"); 
 		    sheet.addCell(label); 
 		    
@@ -114,9 +110,9 @@ public class LightLoadTimer {
 				sheet.addCell(openDisksNum);
 			}
 		
-		    //写入数据并关闭文件 
+			//Write the data to files 
 		    book.write(); 
-		    book.close(); //最好在finally中关闭，此处仅作为示例不太规范
+		    book.close();
 	    }catch(Exception e) { 
 	        System.out.println(e); 
 	    } 
