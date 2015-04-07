@@ -7,7 +7,7 @@ import java.util.HashMap;
  * Description: Disks' basic Information
  * 
  * @author yuan
- * @date 2014年10月19日 下午2:36:23
+ * @date 2014-10-19 14:36:23
  */
 public class DiskInfo {
 	
